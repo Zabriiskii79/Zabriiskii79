@@ -1,0 +1,213 @@
+Config 4 router 20 iPhone 
+Router 1 
+-en
+-conf t
+-int fa0/0
+-ip add 20.20.20.1 255.255.255.0
+-no sh
+-ex
+-int fa1/0
+-ip add 10.10.10.1 255.255.255.0
+-no sh
+-ex
+-ip dhcp pool voice
+-network 10.10.10.0 255.255.255.0
+-default-router 10.10.10.1
+-option 150 ip 10.10.10.1
+-ex
+-ip dhcp excluded-address 10.10.10.1
+-ip route 11.11.11.0 255.255.255.0 20.20.20.2
+-ip route 30.30.30.0 255.255.255.0 20.20.20.2
+-ip route 12.12.12.0 255.255.255.0 20.20.20.2
+-ip route 40.40.40.0 255.255.255.0 20.20.20.2
+-ip route 13.13.13.0 255.255.255.0 20.20.20.2
+
+-telephony-service
+-max-ephones 20
+-max-dn 20
+-ip source address 10.10.10.1 port 2000
+-auto assign 1 to 20
+-ex
+-ephone-dn 1
+-number 1001
+-ex
+-ephone-dn 2
+-number 1002
+-ex
+
+-dial-peer voice 1 voip
+-session target ipv4:20.20.20.2
+-destination-pattern 2...
+-ex
+-dial-peer voice 2 voip
+-session target ipv4:30.30.30.2
+-destination-pattern 3...
+-ex
+-dial-peer voice 3 voip
+-session target ipv4:40.40.40.2
+-destination-pattern 4...
+-ex
+
+Router 2
+-en
+-conf t
+-int fa0/0
+-ip add 20.20.20.2 255.255.255.0
+-no sh
+-ex
+-int fa0/1
+-ip add 30.30.30.1 255.255.255.0
+-no sh
+-ex
+-int fa1/0
+-ip add 11.11.11.1 255.255.255.0
+-no sh
+-ex
+-ip dhcp pool voice
+-network 11.11.11.0 255.255.255.0
+-default-router 11.11.11.1
+-option 150 ip 11.11.11.1
+-ex
+-ip dhcp excluded-address 11.11.11.1
+-ip route 10.10.10.0 255.255.255.0 20.20.20.1
+-ip route 12.12.12.0 255.255.255.0 30.30.30.2
+-ip route 40.40.40.0 255.255.255.0 30.30.30.2
+-ip route 13.13.13.0 255.255.255.0 30.30.30.2
+
+-telephony-service
+-max-ephones 20
+-max-dn 20
+-ip source address 11.11.11.1 port 2000
+-auto assign 1 to 20
+-ex
+-ephone-dn 1
+-number 2001
+-ex
+-ephone-dn 2
+-number 2002
+-ex
+
+-dial-peer voice 4 voip
+-session target ipv4:20.20.20.1
+-destination-pattern 1...
+-ex
+-dial-peer voice 5 voip
+-session target ipv4:30.30.30.2
+-destination-pattern 3...
+-ex
+-dial-peer voice 6 voip
+-session target ipv4:40.40.40.2
+-destination-pattern 4...
+-ex
+
+
+Router 3
+-en
+-conf t
+-int fa0/0
+-ip add 30.30.30.2 255.255.255.0
+-no sh
+-ex
+-int fa0/1
+-ip add 40.40.40.1 255.255.255.0
+-no sh
+-ex
+-int fa1/0 
+-ip add 12.12.12.1 255.255.255.0
+-no sh
+-ex
+-ip dhcp pool voice
+-network 12.12.12.0 255.255.255.0
+-default-router 12.12.12.1
+-option 150 ip 12.12.12.1
+-ex
+-ip dhcp excluded-address 12.12.12.1
+-ip route 13.13.13.0 255.255.255.0 40.40.40.2
+-ip route 11.11.11.0 255.255.255.0 30.30.30.1
+-ip route 20.20.20.0 255.255.255.0 30.30.30.1
+-ip route 10.10.10.0 255.255.255.0 30.30.30.1
+
+-telephony-service
+-max-ephones 20
+-max-dn 20
+-ip source address 12.12.12.1 port 2000
+-auto assign 1 to 20
+-ex
+-ephone-dn 1
+-number 3001
+-ex
+-ephone-dn 2
+-number 3002
+-ex
+
+-dial-peer voice 7 voip
+-session target ipv4:40.40.40.2
+-destination-pattern 4...
+-ex
+-dial-peer voice 8 voip
+-session target ipv4:30.30.30.1
+-destination-pattern 2...
+-ex
+-dial-peer voice 9 voip
+-session target ipv4:20.20.20.1
+-destination-pattern 1...
+-ex
+
+Router 4
+-en
+-conf t
+-int fa0/0
+-ip add 40.40.40.2 255.255.255.0
+-no sh
+-ex
+-int fa1/0
+-ip add 13.13.13.1 255.255.255.0
+-no sh
+-ex
+-ip dhcp pool voice
+-network 13.13.13.0 255.255.255.0
+-default-router 13.13.13.1
+-option 150 ip 13.13.13.1
+-ex
+-ip dhcp excluded-address 13.13.13.1 
+-ip route 12.12.12.0 255.255.255.0 40.40.40.1
+-ip route 30.30.30.0 255.255.255.0 40.40.40.1
+-ip route 11.11.11.0 255.255.255.0 40.40.40.1
+-ip route 20.20.20.0 255.255.255.0 40.40.40.1
+-ip route 10.10.10.0 255.255.255.0 40.40.40.1
+
+-telephony-service
+-max-ephones 20
+-max-dn 20
+-ip source address 13.13.13.1 port 2000
+-auto assign 1 to 20
+-ex
+-ephone-dn 1
+-number 4001
+-ex
+-ephone-dn 2
+-number 4002
+-ex
+
+-dial-peer voice 10 voip
+-session target ipv4:20.20.20.1
+-destination pattern 1...
+-ex
+-dial-peer voice 11 voip
+-session target ipv4:30.30.30.1
+-destination-pattern 2...
+-ex
+-dial-peer voice 12 voip
+-session target ipv4:40.40.40.1
+-destination-pattern 3...
+-ex
+
+Switch 1 - Switch 4
+-en
+-conf t
+-int fa0/1
+-sw mode trunk
+-ex
+-int range fa0/2-24
+-switchport voice vlan 1
+-ex
